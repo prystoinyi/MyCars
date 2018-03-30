@@ -9,10 +9,13 @@ namespace MyCars.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        public bool UserFullRegister { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+            userIdentity.AddClaim(new Claim("UserFullRegister", this.UserFullRegister.ToString()));
             // Add custom user claims here
             return userIdentity;
         }
@@ -24,6 +27,11 @@ namespace MyCars.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
+        //}
 
         public static ApplicationDbContext Create()
         {
