@@ -28,9 +28,19 @@ namespace MyCars.Models
         {
         }
 
+        public DbSet<UserInfo> UsersInfo { get; set; }
+
+        public DbSet<Brand> Brands { get; set; }
+
+        public DbSet<TypeModel> Types { get; set; }
+
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)
         //{
-        //    base.OnModelCreating(modelBuilder);
+        //    modelBuilder.Entity<TypeModel>().HasMany(c => c.UsersInfo)
+        //        .WithMany(s => s.TypeModels)
+        //        .Map(t => t.MapLeftKey("TypeModelId")
+        //        .MapRightKey("UserInfoId")
+        //        .ToTable("TestCar"));
         //}
 
         public static ApplicationDbContext Create()
