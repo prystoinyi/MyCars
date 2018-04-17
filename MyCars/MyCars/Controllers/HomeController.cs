@@ -32,9 +32,7 @@ namespace MyCars.Controllers
                 return RedirectToAction("Create", "UserInfo");
             }
 
-            
-
-            return View(db.UsersInfo.FirstOrDefault());
+            return View(db.UsersInfo.FirstOrDefault(c => c.User.Id == currentUser.Id));
         }
 
         public ActionResult GetItems(int id)
@@ -71,6 +69,12 @@ namespace MyCars.Controllers
             }
 
             return View(NewCar);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult Contact()
+        {
+            return View();
         }
     }
 }

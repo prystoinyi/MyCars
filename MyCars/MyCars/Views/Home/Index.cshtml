@@ -21,13 +21,13 @@
     </div>
 
     
-    <div class="display-label"><b>Car</b> @Html.ActionLink("Add", "Edit")</div>
+    <div class="display-label"><b>Car</b></div>
     <ul>
         @foreach (var c in Model.TypeModels)
         {
             <li>
                 @c.Name
-            @Html.ActionLink("Delete", "Delete"@*, new { id=item.Id }*@)
+            @*@Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
         </li>
     }
     </ul>
