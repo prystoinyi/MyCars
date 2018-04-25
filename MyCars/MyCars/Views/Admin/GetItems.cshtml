@@ -1,0 +1,13 @@
+﻿@model IEnumerable<MyCars.Models.TypeModel>
+
+@{
+    ViewBag.Title = "GetItems";
+}
+
+<select id="model" name="selectedModel">
+    @foreach (var item in Model)
+    {
+        <option value="@item.Id">@item.Name</option>
+    }
+</select>
+

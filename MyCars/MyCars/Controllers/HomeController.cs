@@ -31,7 +31,7 @@ namespace MyCars.Controllers
             {
                 return RedirectToAction("Create", "UserInfo");
             }
-
+            ViewBag.Brand = db.Brands.ToList();
             return View(db.UsersInfo.FirstOrDefault(c => c.User.Id == currentUser.Id));
         }
 

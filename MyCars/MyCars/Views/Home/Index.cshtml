@@ -26,6 +26,7 @@
         @foreach (var c in Model.TypeModels)
         {
             <li>
+                <span>@c.Brand.Name</span>
                 @c.Name
             @*@Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
         </li>
