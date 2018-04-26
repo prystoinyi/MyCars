@@ -27,12 +27,19 @@ namespace MyCars.Controllers
         {
             var currentUser = manager.FindById(User.Identity.GetUserId());
 
+            var result = db.UsersInfo.FirstOrDefault(c => c.User.Id == currentUser.Id);
+
+            if ( result == null)
+            {
+                return RedirectToAction("Create", "UserInfo");
+            }
+
             if (currentUser.UserFullRegister == false)
             {
                 return RedirectToAction("Create", "UserInfo");
             }
             ViewBag.Brand = db.Brands.ToList();
-            return View(db.UsersInfo.FirstOrDefault(c => c.User.Id == currentUser.Id));
+            return View(result);
         }
 
         public ActionResult GetItems(int id)
@@ -69,12 +76,6 @@ namespace MyCars.Controllers
             }
 
             return View(NewCar);
-        }
-
-        [Authorize(Roles = "Admin")]
-        public ActionResult Contact()
-        {
-            return View();
         }
     }
 }

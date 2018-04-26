@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace MyCars.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private UserManager<ApplicationUser> manager;
@@ -20,6 +21,11 @@ namespace MyCars.Controllers
         {
             db = new ApplicationDbContext();
             manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+        }
+
+        public ActionResult Index()
+        {
+            return View();
         }
 
         // GET: Admin
@@ -83,6 +89,30 @@ namespace MyCars.Controllers
             db.Entry(newUserInfo).State = EntityState.Modified;
             db.SaveChanges();
 
+            return RedirectToAction("UserInfo");
+        }
+
+        public ActionResult Delete(int id)
+        {
+            UserInfo userInfo = db.UsersInfo.Find(id);
+            
+            if(userInfo == null)
+            {
+                return HttpNotFound();
+            }
+            return View(userInfo);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            UserInfo userInfo = db.UsersInfo.Find(id);
+            if (userInfo == null)
+            {
+                return HttpNotFound();
+            }
+            db.UsersInfo.Remove(userInfo);
+            db.SaveChanges();
             return RedirectToAction("UserInfo");
         }
     }

@@ -57,13 +57,13 @@
         </div>
     </div>
 
-    <div class="editor-label"><b>Choose a car model</b></div>
-    <div class="editor-field">
-        @Html.DropDownList("Name", ViewBag.Brands as SelectList, new { id = "brand" })
-    </div>
-    <div class="editor-field">
-        @Html.DropDownList("selectedModel", ViewBag.Types as SelectList, new { id = "selectedModel", name = "selectedModel" })
+    <div class="form-group">
 
+        @Html.Label("Choose a car model", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="dropdown col-md-10">
+            @Html.DropDownList("Name", ViewBag.Brands as SelectList, new { id = "brand", @class = "btn btn-default" })
+            @Html.DropDownList("selectedModel", ViewBag.Types as SelectList, new { id = "selectedModel", name = "selectedModel", @class = "btn btn-default" })
+        </div>
     </div>
 
     <div class="form-group">

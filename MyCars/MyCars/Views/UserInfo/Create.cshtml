@@ -5,51 +5,76 @@
     ViewBag.Title = "Create";
 }
 
+<h2>Registration</h2>
+
 @using (Html.BeginForm())
 {
-    <fieldset>
-        <legend>Registration</legend>
+    @Html.AntiForgeryToken()
 
-        <div class="editor-label"><b>Name</b></div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.UserInfo.FirstName)
-        </div>
+    <div class="form-horizontal">
+        <hr />
 
-        <div class="editor-label"><b>Surname</b></div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.UserInfo.LastName)
-        </div>
-
-        <div class="editor-label"><b>Middle Name</b></div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.UserInfo.middleName)
-        </div>
-
-        <div class="editor-label"><b>Phone Number</b></div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.UserInfo.PhoneNumber)
-        </div>
-
-        <div class="editor-label"><b>Choose a car model</b></div>
-        <div class="editor-field">
-            @Html.DropDownList("Name", ViewBag.Brands as SelectList, new { id = "brand" })
-        </div>
-        <div class="editor-field">
-            @Html.DropDownListFor(model => model.TypeCarId, new SelectList(ViewBag.Types, "Id", "Name"), new { id = "TypeCarId" })
-
-        </div>
-
-        <div class="editor-label"><b>Car Number</b></div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.UserInfo.CarNumber)
+        <div class="form-group">
+            @Html.Label("First Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserInfo.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserInfo.FirstName, "", new { @class = "text-danger" })
+            </div>
         </div>
 
         <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
-                    </div>
-                </div>
-    </fieldset>
+
+            @Html.Label("Last Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserInfo.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserInfo.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            @Html.Label("Middle Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserInfo.middleName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserInfo.middleName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            @Html.Label("Phone Number", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserInfo.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserInfo.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            @Html.Label("Choose a car model", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="dropdown col-md-10">
+                @Html.DropDownList("Name", ViewBag.Brands as SelectList, new { id = "brand", @class = "btn btn-default" })
+                @Html.DropDownListFor(model => model.TypeCarId, new SelectList(ViewBag.Types, "Id", "Name"), new { id = "TypeCarId", @class = "btn btn-default" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            @Html.Label("Car Number", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserInfo.CarNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserInfo.CarNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
 }
 
 @section Scripts {
