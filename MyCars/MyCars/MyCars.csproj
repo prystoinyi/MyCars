@@ -217,9 +217,9 @@
     <Compile Include="Migrations\201804070707106_MirateDB.Designer.cs">
       <DependentUpon>201804070707106_MirateDB.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804072031454_MigrateDB3.cs" />
-    <Compile Include="Migrations\201804072031454_MigrateDB3.Designer.cs">
-      <DependentUpon>201804072031454_MigrateDB3.cs</DependentUpon>
+    <Compile Include="Migrations\201804302052485_Add cascade deleting.cs" />
+    <Compile Include="Migrations\201804302052485_Add cascade deleting.Designer.cs">
+      <DependentUpon>201804302052485_Add cascade deleting.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -301,6 +301,11 @@
     <Content Include="Views\Admin\GetItems.cshtml" />
     <Content Include="Views\Admin\Delete.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\CarInfo.cshtml" />
+    <Content Include="Views\Admin\AddCarBrand.cshtml" />
+    <Content Include="Views\Admin\AddCarModel.cshtml" />
+    <Content Include="Views\Admin\DelCarModel.cshtml" />
+    <Content Include="Views\Admin\DelCarBrand.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -334,8 +339,8 @@
     <EmbeddedResource Include="Migrations\201804070707106_MirateDB.resx">
       <DependentUpon>201804070707106_MirateDB.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804072031454_MigrateDB3.resx">
-      <DependentUpon>201804072031454_MigrateDB3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804302052485_Add cascade deleting.resx">
+      <DependentUpon>201804302052485_Add cascade deleting.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

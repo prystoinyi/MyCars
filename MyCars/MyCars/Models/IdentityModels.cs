@@ -34,14 +34,16 @@ namespace MyCars.Models
 
         public DbSet<TypeModel> Types { get; set; }
 
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<TypeModel>().HasMany(c => c.UsersInfo)
-        //        .WithMany(s => s.TypeModels)
-        //        .Map(t => t.MapLeftKey("TypeModelId")
-        //        .MapRightKey("UserInfoId")
-        //        .ToTable("TestCar"));
-        //}
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TypeModel>()
+                .HasRequired<Brand>(c => c.Brand)
+                .WithMany(x => x.TypeModels)
+                .WillCascadeOnDelete(true);
+
+            base.OnModelCreating(modelBuilder);
+
+        }
 
         public static ApplicationDbContext Create()
         {

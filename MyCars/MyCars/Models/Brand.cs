@@ -9,5 +9,11 @@ namespace MyCars.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public virtual ICollection<TypeModel> TypeModels { get; set; }
+        public Brand()
+        {
+            TypeModels = new List<TypeModel>();
+        }
     }
 }
