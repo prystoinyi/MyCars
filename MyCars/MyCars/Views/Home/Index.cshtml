@@ -10,6 +10,7 @@
 <fieldset>
     <legend>Информация</legend>
 
+    @Html.HiddenFor(model => model.Id)
     <div class="display-label"><b>First Name</b></div>
     <div class="display-field">
         @Html.DisplayFor(model => model.FirstName)
@@ -20,16 +21,24 @@
         @Html.DisplayFor(model => model.LastName)
     </div>
 
-    
-    <div class="display-label"><b>Car</b></div>
+    <div class="display-label"><b>Car Number</b></div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CarNumber)
+    </div>
+
+
+    <div class="display-label">
+        <b>Car</b> 
+        @Html.ActionLink("Add new Car", "AddNewCar", new { id = Model.Id })
+    </div>
     <ul>
         @foreach (var c in Model.TypeModels)
         {
             <li>
                 <span>@c.Brand.Name</span>
                 @c.Name
-            @*@Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
-        </li>
-    }
+                @*@Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+            </li>
+        }
     </ul>
 </fieldset>

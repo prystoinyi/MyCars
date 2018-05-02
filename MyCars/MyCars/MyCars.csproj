@@ -306,6 +306,7 @@
     <Content Include="Views\Admin\AddCarModel.cshtml" />
     <Content Include="Views\Admin\DelCarModel.cshtml" />
     <Content Include="Views\Admin\DelCarBrand.cshtml" />
+    <Content Include="Views\Home\AddNewCar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
