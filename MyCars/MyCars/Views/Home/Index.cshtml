@@ -37,7 +37,7 @@
             <li>
                 <span>@c.Brand.Name</span>
                 @c.Name
-                @*@Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+                @Html.ActionLink("Delete", "DeleteCar", new { id=c.Id })
             </li>
         }
     </ul>

@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace MyCars.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private UserManager<ApplicationUser> manager;
@@ -44,30 +44,36 @@ namespace MyCars.Controllers
                 return HttpNotFound();
             }
 
+            int selectedIndex = 1;
+            SelectList brandd = new SelectList(db.Brands.OrderBy(x => x.Name), "Id", "Name", selectedIndex);
+            ViewBag.BrandNew = brandd;
+            SelectList types = new SelectList(db.Types.Where(c => c.BrandId == selectedIndex).OrderBy(x => x.Name), "Id", "Name");
+            ViewBag.TypeNew = types;
 
-            if (userinfo.TypeModels.FirstOrDefault() == null)
+                //var userModel = userinfo.TypeModels.First();
+                //var userBrandId = userModel.BrandId.Value;
+                //var brad = db.Brands.First(b => userBrandId == b.Id);
+
+                //SelectList brand = new SelectList(db.Brands.OrderBy(x => x.Name), "Id", "Name", brad.Id);
+                //ViewBag.Brands = brand;
+
+                //var types = db.Types.Where(c => c.BrandId == brad.Id).OrderBy(x => x.Name).ToList();
+
+                //SelectList model = new SelectList(types, "Id", "Name", userModel.Id);
+
+                //ViewBag.Types = model;
+                //SelectList brand = new SelectList(db.Brands.OrderBy(x => x.Name), "Id", "Name");
+
+            ViewBag.Brands = db.Brands.OrderBy(x => x.Name).ToList();
+            ViewBag.Types = db.Types.OrderBy(x => x.Name).ToList();
+
+            Dictionary<int, int?> DicTest = new Dictionary<int, int?>();
+
+            foreach (var item in userinfo.TypeModels)
             {
-                int selectedIndex = 1;
-                SelectList brandd = new SelectList(db.Brands.OrderBy(x => x.Name), "Id", "Name", selectedIndex);
-                ViewBag.Brands = brandd;
-                SelectList type = new SelectList(db.Types.Where(c => c.BrandId == selectedIndex).OrderBy(x => x.Name), "Id", "Name");
-                ViewBag.Types = type;
+                DicTest.Add(item.Id, item.BrandId);
             }
-            else
-            {
-                var userModel = userinfo.TypeModels.First();
-                var userBrandId = userModel.BrandId.Value;
-                var brad = db.Brands.First(b => userBrandId == b.Id);
-
-                SelectList brand = new SelectList(db.Brands.OrderBy(x => x.Name), "Id", "Name", brad.Id);
-                ViewBag.Brands = brand;
-
-                var types = db.Types.Where(c => c.BrandId == brad.Id).OrderBy(x => x.Name).ToList();
-
-                SelectList model = new SelectList(types, "Id", "Name", userModel.Id);
-
-                ViewBag.Types = model;
-            }
+            ViewBag.Dictionary = DicTest;
 
             return View(userinfo);
         }
@@ -224,6 +230,7 @@ namespace MyCars.Controllers
             db.Entry(brand).State = EntityState.Deleted;
             db.SaveChanges();
             return RedirectToAction("CarInfo");
+
         }
     }
 }

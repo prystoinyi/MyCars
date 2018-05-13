@@ -108,13 +108,51 @@ namespace MyCars.Controllers
                 var modelId = selectedModel.Value;
                 foreach (var item in db.Types.Where(co => modelId == co.Id))
                 {
-                    types.Add(item);
+                    newUserInfo.TypeModels.Add(item);
                 }
             }
 
             db.Entry(newUserInfo).State = EntityState.Modified;
             db.SaveChanges();
 
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult DeleteCar(int id = 0)
+        {
+            var currentUser = manager.FindById(User.Identity.GetUserId());
+
+            var userinfo = db.UsersInfo.FirstOrDefault(c => c.User.Id == currentUser.Id);
+
+            var deleteTypes = userinfo.TypeModels.FirstOrDefault(c => c.Id == id);
+
+            if (userinfo == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(deleteTypes);
+        }
+
+        [HttpPost, ActionName("DeleteCar")]
+        public ActionResult DelConfirmCar(int id)
+        {
+            var currentUser = manager.FindById(User.Identity.GetUserId());
+
+            var userinfo = db.UsersInfo.FirstOrDefault(c => c.User.Id == currentUser.Id);
+
+            var deleteTypes = userinfo.TypeModels.FirstOrDefault(c => c.Id == id);
+
+            if (userinfo == null)
+            {
+                return HttpNotFound();
+            }
+
+            userinfo.TypeModels.Remove(deleteTypes);
+
+            db.Entry(userinfo).State = EntityState.Modified;
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
     }

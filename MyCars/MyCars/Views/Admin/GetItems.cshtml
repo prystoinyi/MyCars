@@ -4,7 +4,7 @@
     ViewBag.Title = "GetItems";
 }
 
-<select id="selectedModel" name="selectedModel" class="btn btn-default">
+<select id="selectedModel" name="selectedModel" class="btn btn-default selectedModel">
     @foreach (var item in Model)
     {
         <option value="@item.Id">@item.Name</option>
