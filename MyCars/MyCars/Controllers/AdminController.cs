@@ -44,25 +44,21 @@ namespace MyCars.Controllers
                 return HttpNotFound();
             }
 
-            int selectedIndex = 1;
-            SelectList brandd = new SelectList(db.Brands.OrderBy(x => x.Name), "Id", "Name", selectedIndex);
-            ViewBag.BrandNew = brandd;
-            SelectList types = new SelectList(db.Types.Where(c => c.BrandId == selectedIndex).OrderBy(x => x.Name), "Id", "Name");
-            ViewBag.TypeNew = types;
+            
 
-                //var userModel = userinfo.TypeModels.First();
-                //var userBrandId = userModel.BrandId.Value;
-                //var brad = db.Brands.First(b => userBrandId == b.Id);
+            //var userModel = userinfo.TypeModels.First();
+            //var userBrandId = userModel.BrandId.Value;
+            //var brad = db.Brands.First(b => userBrandId == b.Id);
 
-                //SelectList brand = new SelectList(db.Brands.OrderBy(x => x.Name), "Id", "Name", brad.Id);
-                //ViewBag.Brands = brand;
+            //SelectList brand = new SelectList(db.Brands.OrderBy(x => x.Name), "Id", "Name", brad.Id);
+            //ViewBag.Brands = brand;
 
-                //var types = db.Types.Where(c => c.BrandId == brad.Id).OrderBy(x => x.Name).ToList();
+            //var types = db.Types.Where(c => c.BrandId == brad.Id).OrderBy(x => x.Name).ToList();
 
-                //SelectList model = new SelectList(types, "Id", "Name", userModel.Id);
+            //SelectList model = new SelectList(types, "Id", "Name", userModel.Id);
 
-                //ViewBag.Types = model;
-                //SelectList brand = new SelectList(db.Brands.OrderBy(x => x.Name), "Id", "Name");
+            //ViewBag.Types = model;
+            //SelectList brand = new SelectList(db.Brands.OrderBy(x => x.Name), "Id", "Name");
 
             ViewBag.Brands = db.Brands.OrderBy(x => x.Name).ToList();
             ViewBag.Types = db.Types.OrderBy(x => x.Name).ToList();
@@ -83,8 +79,19 @@ namespace MyCars.Controllers
             return PartialView(db.Types.Where(c => c.BrandId == id).OrderBy(x => x.Name).ToList());
         }
 
+        public ActionResult AddNewCar()
+        {
+            int selectedIndex = 1;
+            SelectList brandd = new SelectList(db.Brands.OrderBy(x => x.Name), "Id", "Name", selectedIndex);
+            ViewBag.BrandNew = brandd;
+            SelectList types = new SelectList(db.Types.Where(c => c.BrandId == selectedIndex).OrderBy(x => x.Name), "Id", "Name");
+            ViewBag.TypeNew = types;
+
+            return PartialView("_PartialView");
+        }
+
         [HttpPost]
-        public ActionResult Edit(UserInfo userinfo, int? selectedModel)
+        public ActionResult Edit(UserInfo userinfo, int[] selectedModel)
         {
             UserInfo newUserInfo = db.UsersInfo.Find(userinfo.Id);
             newUserInfo.LastName = userinfo.LastName;
@@ -95,14 +102,22 @@ namespace MyCars.Controllers
 
             newUserInfo.TypeModels.Clear();
 
-            if (selectedModel.HasValue)
+            for (int i = 0; i < selectedModel.Length; i++)
             {
-                var modelId = selectedModel.Value;
-                foreach (var item in db.Types.Where(co => modelId == co.Id ))
+                var modelId = selectedModel[i];
+                foreach (var item in db.Types.Where(co => modelId == co.Id))
                 {
                     newUserInfo.TypeModels.Add(item);
                 }
             }
+            //if (selectedModel.HasValue)
+            //{
+            //    var modelId = selectedModel.Value;
+            //    foreach (var item in db.Types.Where(co => modelId == co.Id ))
+            //    {
+            //        newUserInfo.TypeModels.Add(item);
+            //    }
+            //}
 
             db.Entry(newUserInfo).State = EntityState.Modified;
             db.SaveChanges();

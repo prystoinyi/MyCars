@@ -1,0 +1,5 @@
+﻿@Html.Label("Choose a car model", htmlAttributes: new { @class = "control-label col-md-2" })
+<div class="dropdown col-md-10">
+    @Html.DropDownList("BrandId", ViewBag.BrandNew as SelectList, new { id = "brand", @class = "btn btn-default brand" })
+    @Html.DropDownList("selectedModel", ViewBag.TypeNew as SelectList, new { id = "selectedModel", name = "selectedModel", @class = "btn btn-default selectedModel" })
+</div>
