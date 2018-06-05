@@ -65,12 +65,11 @@
                 @Html.Label("Choose a car model", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="dropdown col-md-10">
                     @Html.DropDownList("BrandId", new SelectList(ViewBag.Brands, "Id", "Name", it.Value), new { id = "brand", @class = "btn btn-default brand" })
-                    @Html.DropDownList("selectedModel", new SelectList(ViewBag.Types, "Id", "Name", it.Key), new { id = "selectedModel", name = "selectedModel", @class = "btn btn-default selectedModel" })
+                    @Html.DropDownList("selectedModel", new SelectList(ViewBag.Types, "Id", "Name", it.Key), new { @class = "btn btn-default selectedModel" })
+                    <button type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></button>
                 </div>
             </div>
         }
-        @*<div class="form-group display"></div>*@
-
     </div>
 
 
@@ -94,24 +93,17 @@
 
     <script type="text/javascript">
     $(function () {
-
         $('#newCar').click(function () {
-            //$("div").removeClass('hidden');
-            //var dropDownNewCar = $('<div class="form-group"> @@Html.Label("Choose a car model", htmlAttributes: new { @@class = "control-label col-md-2" }) <div class="dropdown col-md-10"> @@Html.DropDownList("BrandId", ViewBag.BrandNew as SelectList, new { id = "brand", @@class = "btn btn-default brand" }) @@Html.DropDownList("selectedModel", ViewBag.TypeNew as SelectList, new { id = "selectedModel", name = "selectedModel", @@class = "btn btn-default selectedModel" }) </div> </div>');
-            //$('#Display').append(dropDownNewCar);
-            //$('.newCars').append($("newC"));
-            var dropDown = $('<div class="form-group display"></div>');
+            var dropDown = $('<div class="form-group"></div>');
             $('.dropDown').append(dropDown);
-
+            
             $.get('@Url.Action("AddNewCar", "Admin")', {}, function (response) {
-                $(".display").html(response);
+                $(dropDown).html(response);
             });
-
         });
 
         $(document).on("change", ".brand", function (e)
         {
-            $("div").removeClass('display');
             var idd = $(this).val();
             var targetSelect = this;
             $.ajax({
@@ -122,8 +114,10 @@
                 }
             });
         });
-        
 
+        $(document).on("click", "button", function (e) {
+            $(this).closest('.form-group').remove();
+        });
     })
     </script>
 }

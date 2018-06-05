@@ -2,4 +2,5 @@
 <div class="dropdown col-md-10">
     @Html.DropDownList("BrandId", ViewBag.BrandNew as SelectList, new { id = "brand", @class = "btn btn-default brand" })
     @Html.DropDownList("selectedModel", ViewBag.TypeNew as SelectList, new { id = "selectedModel", name = "selectedModel", @class = "btn btn-default selectedModel" })
+    <button type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></button>
 </div>
